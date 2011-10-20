@@ -1,20 +1,13 @@
 <?php echo $this->headScript()->appendFile($this->websiteUrl . 'plugins/backstretch/system/layout/js/jquery.backstretch.min.js'); ?>
-<!--<script src="jquery.backstretch.min.js"></script>-->
 <script>
-    // Create an array of images that you'd like to use
     var images = [];
 	<?php foreach($this->images as $img): ?>
 		images.push('<?php echo $img; ?>');
 	<?php endforeach; ?>
-    // The index variable will keep track of which image is currently showing
     var index = 0;
 
-    // Call backstretch for the first time,
-    // In this case, I'm settings speed of 500ms for a fadeIn effect between images.
-    $.backstretch(images[index], {speed: 500});
+    $.backstretch(images[index], {speed: <?php echo (($this->time) ? $this->time : Backstretch::DEFAULT_FADE_INTERVAL); ?>});
 
-    // Set an interval that increments the index and sets the new image
-    // Note: The fadeIn speed set above will be inherited
     setInterval(function() {
         index = (index >= images.length - 1) ? 0 : index + 1;
         $.backstretch(images[index]);
