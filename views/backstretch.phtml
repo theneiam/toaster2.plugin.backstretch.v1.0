@@ -1,4 +1,5 @@
-<?php echo $this->headScript()->appendFile($this->websiteUrl . 'plugins/backstretch/system/layout/js/jquery.backstretch.min.js'); ?>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+
 <script>
     var images = [];
 	<?php foreach($this->images as $img): ?>
@@ -6,10 +7,10 @@
 	<?php endforeach; ?>
     var index = 0;
 
-    $.backstretch(images[index], {speed: <?php echo (($this->time) ? $this->time : Backstretch::DEFAULT_FADE_INTERVAL); ?>});
-
-    setInterval(function() {
-        index = (index >= images.length - 1) ? 0 : index + 1;
-        $.backstretch(images[index]);
-    }, 5000);
+    $.backstretch(images, {
+        centeredY: true,
+        centeredX: true,
+        duration: <?php echo (($this->duration) ?: Backstretch::DEFAULT_DURATION_INTERVAL); ?>,
+        fade: <?php echo (($this->time) ?: Backstretch::DEFAULT_FADE_INTERVAL); ?>
+    });
 </script>
